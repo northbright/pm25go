@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/northbright/pm25go.svg?branch=master)](https://travis-ci.org/northbright/pm25go)
 
-#### pm25go is a go package to grab china PM2.5 data.
+pm25go is a go package to grab china PM2.5 data.
 
 #### Features
 * Grabbing PM2.5 data provided by US Embassy which are posted on twitter.
