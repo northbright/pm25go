@@ -187,12 +187,12 @@ func (station USEmbassyStation) GrabData() (err error) {
 }
 
 // GetUSEmbassyStation returns USEmbassyStation by city name.
-func GetUSEmbassyStation(city string) (err error, station *USEmbassyStation) {
+func GetUSEmbassyStation(city string) (station *USEmbassyStation, err error) {
 	if _, ok := usembassyStations[city]; !ok {
-		return errors.New("No such city."), &USEmbassyStation{}
+		return &USEmbassyStation{}, errors.New("No such city.")
 	}
 
-	return nil, usembassyStations[city]
+	return usembassyStations[city], nil
 }
 
 func init() {
