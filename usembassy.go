@@ -20,26 +20,28 @@ type USEmbassyStation struct {
 	TwitterId string // twitter id to publish pm2.5 data
 }
 
-var DEBUG = true
+var (
+	DEBUG = true
 
-var usembassyStationJSONData = []string{
-	"{\"Name\":\"Beijing US Embassy\", \"City\":\"Beijing\", \"Location\":{\"Latitude\":39.959491, \"Longitude\":116.466354}, \"TwitterId\":\"beijingair\"}",
-	"{\"Name\":\"Chengdu US Embassy\", \"City\":\"Chengdu\", \"Location\":{\"Latitude\":30.634367, \"Longitude\":104.068969}, \"TwitterId\":\"cgchengduair\"}",
-	"{\"Name\":\"Guangzhou US Embassy\", \"City\":\"Guangzhou\", \"Location\":{\"Latitude\":23.11226, \"Longitude\":113.243954}, \"TwitterId\":\"Guangzhou_Air\"}",
-	"{\"Name\":\"Shanghai US Embassy\", \"City\":\"Shanghai\", \"Location\":{\"Latitude\":31.209296, \"Longitude\":121.447202}, \"TwitterId\":\"CGShanghaiAir\"}",
-	"{\"Name\":\"Shenyang US Embassy\", \"City\":\"Shenyang\", \"Location\":{\"Latitude\":41.786545, \"Longitude\":123.42622}, \"TwitterId\":\"Shenyang_Air\"}",
-}
+	usembassyStationJSONData = []string{
+		"{\"Name\":\"Beijing US Embassy\", \"City\":\"Beijing\", \"Location\":{\"Latitude\":39.959491, \"Longitude\":116.466354}, \"TwitterId\":\"beijingair\"}",
+		"{\"Name\":\"Chengdu US Embassy\", \"City\":\"Chengdu\", \"Location\":{\"Latitude\":30.634367, \"Longitude\":104.068969}, \"TwitterId\":\"cgchengduair\"}",
+		"{\"Name\":\"Guangzhou US Embassy\", \"City\":\"Guangzhou\", \"Location\":{\"Latitude\":23.11226, \"Longitude\":113.243954}, \"TwitterId\":\"Guangzhou_Air\"}",
+		"{\"Name\":\"Shanghai US Embassy\", \"City\":\"Shanghai\", \"Location\":{\"Latitude\":31.209296, \"Longitude\":121.447202}, \"TwitterId\":\"CGShanghaiAir\"}",
+		"{\"Name\":\"Shenyang US Embassy\", \"City\":\"Shenyang\", \"Location\":{\"Latitude\":41.786545, \"Longitude\":123.42622}, \"TwitterId\":\"Shenyang_Air\"}",
+	}
 
-// Key = city, Value = USEmbassyStation struct pointer
-var usembassyStations = make(map[string]*USEmbassyStation)
+	// Key = city, Value = USEmbassyStation struct pointer
+	usembassyStations = make(map[string]*USEmbassyStation)
 
-var mainURL = "https://twitter.com/i/profiles/show/"
-var subURL = "/timeline?include_available_features=1&include_entities=1"
-var patternHasMoreItems = `"hasMoreItems":(true|false)`
-var patternMaxID = `^{"max_id":"(?P<max_id>\d*)"`
-var patternHourly = `data-tweet-id=\\"(?P<id>\d*)\\"(.*?)(?P<time>\d{2}-\d{2}-\d{4} \d{2}:\d{2}); PM2\.5; (?P<concentration>\d*\.\d*); (?P<aqi>\d*);`
-var patternAvg = `data-tweet-id=\\"(?P<id>\d*)\\"(.*?)(?P<avgstarttime>\d{2}-\d{2}-\d{4} \d{2}:\d{2}) to (?P<avgendtime>\d{2}-\d{2}-\d{4} \d{2}:\d{2}); PM2\.5 24hr avg; (?P<avgconcertration>\d*\.\d*); (?P<avgaqi>\d*);`
-var patternAnalyzeHourlyTime = `(?P<month>\d{2})-(?P<date>\d{2})-(?P<year>\d{4}) (?P<hour>\d{2}):(?P<minute>\d{2})`
+	mainURL                  = "https://twitter.com/i/profiles/show/"
+	subURL                   = "/timeline?include_available_features=1&include_entities=1"
+	patternHasMoreItems      = `"hasMoreItems":(true|false)`
+	patternMaxID             = `^{"max_id":"(?P<max_id>\d*)"`
+	patternHourly            = `data-tweet-id=\\"(?P<id>\d*)\\"(.*?)(?P<time>\d{2}-\d{2}-\d{4} \d{2}:\d{2}); PM2\.5; (?P<concentration>\d*\.\d*); (?P<aqi>\d*);`
+	patternAvg               = `data-tweet-id=\\"(?P<id>\d*)\\"(.*?)(?P<avgstarttime>\d{2}-\d{2}-\d{4} \d{2}:\d{2}) to (?P<avgendtime>\d{2}-\d{2}-\d{4} \d{2}:\d{2}); PM2\.5 24hr avg; (?P<avgconcertration>\d*\.\d*); (?P<avgaqi>\d*);`
+	patternAnalyzeHourlyTime = `(?P<month>\d{2})-(?P<date>\d{2})-(?P<year>\d{4}) (?P<hour>\d{2}):(?P<minute>\d{2})`
+)
 
 // Analyze matched string and save the data into leveldb.
 func (station USEmbassyStation) save(time string, pm25HourlyData string, aqi string) (err error) {
