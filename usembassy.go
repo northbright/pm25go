@@ -14,6 +14,7 @@ import (
 	"time"
 )
 
+// USEmbassyStation represent U.S. embassy station.
 type USEmbassyStation struct {
 	StationInfo
 	TwitterId string // twitter id to publish pm2.5 data
