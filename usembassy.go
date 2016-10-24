@@ -181,12 +181,12 @@ func (station USEmbassyStation) grabData(maxIDStr string) (err error) {
 	return nil
 }
 
-// Grab PM2.5 data.
+// GrabData grabs PM2.5 data.
 func (station USEmbassyStation) GrabData() (err error) {
 	return station.grabData("")
 }
 
-// return USEmbassyStation by city name.
+// GetUSEmbassyStation returns USEmbassyStation by city name.
 func GetUSEmbassyStation(city string) (err error, station *USEmbassyStation) {
 	if _, ok := usembassyStations[city]; !ok {
 		return errors.New("No such city."), &USEmbassyStation{}
