@@ -1,6 +1,7 @@
 ## pm25go
 
 [![Build Status](https://travis-ci.org/northbright/pm25go.svg?branch=master)](https://travis-ci.org/northbright/pm25go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/northbright/pm25go)](https://goreportcard.com/report/github.com/northbright/pm25go)
 
 pm25go is a [Golang](http://golang.org) package which grabs china PM2.5 data.
 
