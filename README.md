@@ -19,3 +19,5 @@ pm25go is a [Golang](http://golang.org) package which grabs china PM2.5 data.
 
     go test
 
+#### LICENSE
+* [MIT License](LICENSE)
