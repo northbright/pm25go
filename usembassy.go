@@ -5,7 +5,6 @@ package pm25
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -58,7 +57,7 @@ func (station USEmbassyStation) grabData(maxIDStr string) (err error) {
 	if len(station.TwitterID) == 0 {
 		msg := "TwitterID is empty."
 		fmt.Println(msg)
-		return errors.New(msg)
+		return fmt.Errorf(msg)
 	}
 
 	url := mainURL + station.TwitterID + subURL
@@ -116,7 +115,7 @@ func (station USEmbassyStation) grabData(maxIDStr string) (err error) {
 		re := regexp.MustCompile(patternAnalyzeHourlyTime)
 		matched := re.FindStringSubmatch(tm)
 		if len(matched) == 0 {
-			return errors.New("Time format is incorrect.")
+			return fmt.Errorf("Time format is incorrect.")
 		}
 		month := matched[1]
 		date := matched[2]
@@ -189,7 +188,7 @@ func (station USEmbassyStation) GrabData() (err error) {
 // GetUSEmbassyStation returns USEmbassyStation by city name.
 func GetUSEmbassyStation(city string) (station *USEmbassyStation, err error) {
 	if _, ok := usembassyStations[city]; !ok {
-		return &USEmbassyStation{}, errors.New("No such city.")
+		return &USEmbassyStation{}, fmt.Errorf("No such city.")
 	}
 
 	return usembassyStations[city], nil
