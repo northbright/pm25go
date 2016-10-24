@@ -15,6 +15,6 @@ type StationInfo struct {
 
 // Station represents one station.
 type Station interface {
-	save(time string, pm25_hourly_data string, aqi string) (err error)
+	save(time string, pm25HourlyData string, aqi string) (err error)
 	GrabData() (err error)
 }
