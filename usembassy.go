@@ -21,6 +21,7 @@ type USEmbassyStation struct {
 }
 
 var (
+	// DEBUG is debug mode.
 	DEBUG = true
 
 	usembassyStationJSONData = []string{
