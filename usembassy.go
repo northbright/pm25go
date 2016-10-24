@@ -17,7 +17,7 @@ import (
 // USEmbassyStation represent U.S. embassy station.
 type USEmbassyStation struct {
 	StationInfo
-	TwitterId string // twitter id to publish pm2.5 data
+	TwitterID string // twitter id to publish pm2.5 data
 }
 
 var (
@@ -25,11 +25,11 @@ var (
 	DEBUG = true
 
 	usembassyStationJSONData = []string{
-		"{\"Name\":\"Beijing US Embassy\", \"City\":\"Beijing\", \"Location\":{\"Latitude\":39.959491, \"Longitude\":116.466354}, \"TwitterId\":\"beijingair\"}",
-		"{\"Name\":\"Chengdu US Embassy\", \"City\":\"Chengdu\", \"Location\":{\"Latitude\":30.634367, \"Longitude\":104.068969}, \"TwitterId\":\"cgchengduair\"}",
-		"{\"Name\":\"Guangzhou US Embassy\", \"City\":\"Guangzhou\", \"Location\":{\"Latitude\":23.11226, \"Longitude\":113.243954}, \"TwitterId\":\"Guangzhou_Air\"}",
-		"{\"Name\":\"Shanghai US Embassy\", \"City\":\"Shanghai\", \"Location\":{\"Latitude\":31.209296, \"Longitude\":121.447202}, \"TwitterId\":\"CGShanghaiAir\"}",
-		"{\"Name\":\"Shenyang US Embassy\", \"City\":\"Shenyang\", \"Location\":{\"Latitude\":41.786545, \"Longitude\":123.42622}, \"TwitterId\":\"Shenyang_Air\"}",
+		"{\"Name\":\"Beijing US Embassy\", \"City\":\"Beijing\", \"Location\":{\"Latitude\":39.959491, \"Longitude\":116.466354}, \"TwitterID\":\"beijingair\"}",
+		"{\"Name\":\"Chengdu US Embassy\", \"City\":\"Chengdu\", \"Location\":{\"Latitude\":30.634367, \"Longitude\":104.068969}, \"TwitterID\":\"cgchengduair\"}",
+		"{\"Name\":\"Guangzhou US Embassy\", \"City\":\"Guangzhou\", \"Location\":{\"Latitude\":23.11226, \"Longitude\":113.243954}, \"TwitterID\":\"Guangzhou_Air\"}",
+		"{\"Name\":\"Shanghai US Embassy\", \"City\":\"Shanghai\", \"Location\":{\"Latitude\":31.209296, \"Longitude\":121.447202}, \"TwitterID\":\"CGShanghaiAir\"}",
+		"{\"Name\":\"Shenyang US Embassy\", \"City\":\"Shenyang\", \"Location\":{\"Latitude\":41.786545, \"Longitude\":123.42622}, \"TwitterID\":\"Shenyang_Air\"}",
 	}
 
 	// Key = city, Value = USEmbassyStation struct pointer
@@ -55,13 +55,13 @@ func (station USEmbassyStation) grabData(maxIDStr string) (err error) {
 	newMaxIDStr := ""
 	var newMaxID, maxIDHourly, maxIDAvg int64 = -1, -1, -1
 
-	if len(station.TwitterId) == 0 {
-		msg := "TwitterId is empty."
+	if len(station.TwitterID) == 0 {
+		msg := "TwitterID is empty."
 		fmt.Println(msg)
 		return errors.New(msg)
 	}
 
-	url := mainURL + station.TwitterId + subURL
+	url := mainURL + station.TwitterID + subURL
 	if maxIDStr != "" {
 		url = fmt.Sprintf("%s&max_id=%s", url, maxIDStr)
 	}
